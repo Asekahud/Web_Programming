@@ -11,9 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {  return view('welcome');});
+Route::get ('/',['as' => 'welcome','uses' => 'UserController@index']);
+Route::get ('unpublished',['as' => 'posts.unpublished','uses' => 'PostController@unpublished']);
+
+//Route::get ('post/create',['as' => 'post.create','uses' => 'PostController@create']);
+//Route::post('post',['as' => 'post.store','uses' => 'PostController@store']);
+//Route::get ('post/{post}',['as' => 'post.show','uses' => 'PostController@show']);
+//Route::get ('post/{post}/edit',['as' => 'post.edit','uses' => 'PostController@edit']);
+//Route::post ('post/{post}',['as' => 'post.update','uses' => 'PostController@update']);
+
+$router->resource('post', 'PostController');
+
 
 /*
 |--------------------------------------------------------------------------
