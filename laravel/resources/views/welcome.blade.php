@@ -8,7 +8,7 @@
                 <div class="panel-heading">Welcome</div>
 
                 <div class="panel-body">
-                    Your Application's Landing Page.
+                    {!! link_to_route('post.create','Create Form') !!} &nbsp;&nbsp;&nbsp; {!! link_to_route('posts.unpublished','unpublished')!!} &nbsp;&nbsp;&nbsp; {!! link_to_route('posts.published','published') !!}
                 </div>
             </div>
         </div>
