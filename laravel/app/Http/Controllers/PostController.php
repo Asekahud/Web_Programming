@@ -11,13 +11,8 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
 class PostController extends Controller {
-    public function index(Post $postModel)
+    public function published(Post $postModel)
     {
-        //$posts=Post::all();
-        //$posts = Post::latest('published_at')->get();
-        //$posts = Post::latest('published_at')
-        //   ->where('published_at', '<=', Carbon::now())
-        //   ->get();
         $posts = $postModel->getPublishedPosts();
         return view('post.index', ['posts' => $posts]);
     }
@@ -33,9 +28,9 @@ class PostController extends Controller {
     public function store(Post $postModel, Request $request)
     {
         
-        dd($request->all());
+        //dd($request->all());
         $postModel->create($request->all());
-        return redirect()->route('posts');
+        return redirect()->route('/');
     }
     public function show($id)
     {
