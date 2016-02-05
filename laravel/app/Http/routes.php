@@ -15,6 +15,7 @@ Route::get('/', function () {  return view('welcome');});
 //Route::get ('/',['as' => 'welcome','uses' => 'UserController@index']);
 Route::get ('unpublished',['as' => 'posts.unpublished','uses' => 'PostController@unpublished']);
 Route::get ('published',['as' => 'posts.published','uses' => 'PostController@published']);
+Route::get ('myposts',['as' => 'posts.myposts','uses' => 'PostController@showAll']);
 
 Route::get ('post/create',['as' => 'post.create','uses' => 'PostController@create']);
 Route::post('post',['as' => 'post.store','uses' => 'PostController@store']);

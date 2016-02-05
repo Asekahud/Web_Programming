@@ -5,6 +5,10 @@ use Carbon\Carbon;
 
 class Post extends Model
 {
+    
+    protected $fillable = [
+        'slug', 'title', 'excerpt','content','published','published_at'
+    ];
     public function getPublishedPosts()
     {
         $posts = Post::latest('published_at')->published()->get();           
