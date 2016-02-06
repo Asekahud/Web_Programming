@@ -73,11 +73,11 @@ class PostController extends Controller {
     }
     public function edit($id)
     {
-        
+        echo "edit " + $id;
     }
     public function update($id)
     {
-        
+        echo "delete " + $id;
     }
     public function destroy($id)
     {
