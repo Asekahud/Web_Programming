@@ -20,8 +20,8 @@
               <td>{!!$post->content !!}</td>
               <td>{!!$post->published_at !!}</td>
               <td>
-                  {!! link_to_route('post.edit','Edit') !!} |
-                  {!! link_to_route('posts.delete','Delete') !!}
+                  {!! link_to_route('post.edit','Edit',[$post->id]) !!} |
+                  {!! link_to_route('post.delete','Delete',[$post->id]) !!}
               </td>
             </tr>
          @endforeach

@@ -36,7 +36,7 @@ class PostController extends Controller {
     public function store(Request $request)
     {
         $post = $request->all();
-        $v = \Validator::make($request->all(),
+        $validation = \Validator::make($request->all(),
          [
             'slug' => 'required',
             'title' => 'required',
@@ -45,9 +45,9 @@ class PostController extends Controller {
             'published' => 'required',
             'published_at' => 'required',            
          ]);
-        if($v->fails())
+        if($validation->fails())
         {
-            return redirect()->back()->withErrors($v->errors());
+            return redirect()->back()->withErrors($validation->errors());
         }
         else
         {
@@ -59,10 +59,10 @@ class PostController extends Controller {
             'published' => $post['published'],
             'published_at' => $post['published_at'],
             );
-            $i = DB::table('posts')->insert($data);
-            if ($i > 0)
+            $insert = DB::table('posts')->insert($data);
+            if ($insert > 0)
             {
-                Session::flash('message','Post have been added succesfully');
+                \Session::flash('message','Post have been added succesfully');
                 return redirect('/');
             }
         }
@@ -79,9 +79,14 @@ class PostController extends Controller {
     {
         echo "delete " + $id;
     }
-    public function destroy($id)
+    public function delete($id)
     {
-        
+        $delete = DB::table('posts')->where('id',$id)->delete();
+        if ($delete > 0)
+        {
+            \Session::flash('message','Post have been deleted succesfully');
+            return redirect('myposts');
+        }
     }
 }
 
