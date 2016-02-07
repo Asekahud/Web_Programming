@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; //for make transaction or process
+use Illuminate\Pagination\LengthAwarePaginator; //for make transaction or process
 use App\Models\Post;
 
 use App\Http\Requests;
@@ -26,7 +27,7 @@ class PostController extends Controller {
     }
     public function showAll()
     {
-        $posts = DB::table('posts')->get();
+        $posts = DB::table('posts')->paginate(5);
         return view('post.myposts', ['posts' => $posts]);
     }
     public function create()
@@ -73,11 +74,43 @@ class PostController extends Controller {
     }
     public function edit($id)
     {
-        echo "edit " + $id;
+        $post = DB::table('posts')->where('id',$id)->first();
+        return view('post.edit',['post' => $post]);      
     }
-    public function update($id)
+    public function update(Request $request)
     {
-        echo "delete " + $id;
+        $post = $request->all();
+        $validation = \Validator::make($request->all(),
+         [
+            'slug' => 'required',
+            'title' => 'required',
+            'excerpt' => 'required',
+            'content' => 'required',
+            'published' => 'required',
+            'published_at' => 'required',            
+         ]);
+        if($validation->fails())
+        {
+            return redirect()->back()->withErrors($validation->errors());
+        }
+         else
+         {
+            $data = array(
+              'id' => $post['id'],  
+              'title' => $post['title'],
+              'slug' => $post['slug'],
+              'excerpt' => $post['excerpt'],
+              'content' => $post['content'],
+              'published' => $post['published'],
+              'published_at' => $post['published_at'],
+            );
+            $update = DB::table('posts')->where('id',$data['id'])->update($data);
+            if ($update > 0)
+            {
+                \Session::flash('message','Post have been updated succesfully');
+                return redirect('myposts');
+            }
+        }
     }
     public function delete($id)
     {

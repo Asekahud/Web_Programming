@@ -25,6 +25,8 @@
               </td>
             </tr>
          @endforeach
+         <!--display next prev button-->
+         {!!$posts->render()!!}
          </tbody>
    </table>
 @stop

@@ -22,7 +22,7 @@ Route::post('post',['as' => 'post.store','uses' => 'PostController@store']);
 //Route::get ('post/{post}',['as' => 'post.show','uses' => 'PostController@show']);
 Route::get ('post/edit/{id}',['as' => 'post.edit','uses' => 'PostController@edit']);
 Route::get ('post/delete/{id}',['as' => 'post.delete','uses' => 'PostController@delete']);
-//Route::post ('post/{post}',['as' => 'post.update','uses' => 'PostController@update']);
+Route::post ('post/update',['as' => 'post.update','uses' => 'PostController@update']);
 
 //$router->resource('post', 'PostController');
 
