@@ -1,14 +1,11 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request; //for make transaction or process
+//use Request; //for make transaction or process
 use Illuminate\Pagination\LengthAwarePaginator; //for make transaction or process
 use App\Models\Post;
-
-use App\Http\Requests;
+use Request;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests;
 use DB;
 use Session;
 
@@ -36,8 +33,9 @@ class PostController extends Controller {
     }
     public function store(Request $request)
     {
-        $post = $request->all();
-        $validation = \Validator::make($request->all(),
+        $post = Request::input();
+         
+        $validation = \Validator::make($request::all(),
          [
             'slug' => 'required',
             'title' => 'required',
@@ -68,9 +66,19 @@ class PostController extends Controller {
             }
         }
    }
-    public function show($id)
+    public function searchForm()
     {
-        
+        $categories = \DB::table('categories')->lists('category_name','id');
+        return view('post.search_form', ['categories'=> $categories]);
+    }
+    public function search(Request $request)
+    {
+       
+       $searchterm = Request::input('search');
+       $category_id = Request::input('category');
+       $category = DB::table('categories')->where('id',$category_id)->value('category_name');
+       $posts = DB::table('posts')->where($category,'LIKE', '%'.$searchterm.'%')->paginate(5);
+       return view('post.search_results',['posts' => $posts]);
     }
     public function edit($id)
     {
@@ -79,8 +87,8 @@ class PostController extends Controller {
     }
     public function update(Request $request)
     {
-        $post = $request->all();
-        $validation = \Validator::make($request->all(),
+        $post = Request::input();
+        $validation = \Validator::make(Request::input(),
          [
             'slug' => 'required',
             'title' => 'required',

@@ -17,12 +17,15 @@ Route::get ('unpublished',['as' => 'posts.unpublished','uses' => 'PostController
 Route::get ('published',['as' => 'posts.published','uses' => 'PostController@published']);
 Route::get ('myposts',['as' => 'posts.myposts','uses' => 'PostController@showAll']);
 
-Route::get ('post/create',['as' => 'post.create','uses' => 'PostController@create']);
+Route::get ('post/create',['middleware'=> 'auth','as' => 'post.create','uses' => 'PostController@create']);
 Route::post('post',['as' => 'post.store','uses' => 'PostController@store']);
 //Route::get ('post/{post}',['as' => 'post.show','uses' => 'PostController@show']);
 Route::get ('post/edit/{id}',['as' => 'post.edit','uses' => 'PostController@edit']);
 Route::get ('post/delete/{id}',['as' => 'post.delete','uses' => 'PostController@delete']);
 Route::post ('post/update',['as' => 'post.update','uses' => 'PostController@update']);
+
+Route::get ('post/search',['as' => 'post.searchform','uses' => 'PostController@searchForm']);
+Route::get('post/search/results',['as' => 'post.search','uses' => 'PostController@search']);
 
 //$router->resource('post', 'PostController');
 

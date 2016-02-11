@@ -83,7 +83,8 @@
                 {!! link_to_route('posts.published','Published') !!} &nbsp;&nbsp;&nbsp;
                 {!! link_to_route('posts.unpublished','Unpublished') !!} &nbsp;&nbsp;&nbsp;
                 {!! link_to_route('post.create','Create Form') !!} &nbsp;&nbsp;&nbsp;   
-                {!! link_to_route('posts.myposts','My Posts') !!}                
+                {!! link_to_route('posts.myposts','My Posts') !!} &nbsp;&nbsp;&nbsp;
+                {!! link_to_route('post.searchform','Search') !!}
                 </div>
                 @yield('content')
             </div>

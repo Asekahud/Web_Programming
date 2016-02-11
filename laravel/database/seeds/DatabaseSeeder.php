@@ -12,5 +12,22 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UserTableSeeder::class);
+        $this->call(CategoriesSeeder::class);
     }
+}
+class CategoriesSeeder extends Seeder {
+    
+    public function run() {
+        DB::table('categories')->delete();
+        Post::create([
+            'category_name' => 'title',            
+        ]);
+        Post::create([
+            'category_name' => 'slug',            
+        ]);
+        Post::create([
+            'category_name' => 'excerpt',            
+        ]);
+    }
+    
 }
