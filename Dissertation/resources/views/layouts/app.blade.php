@@ -1,99 +1,51 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head> 
 
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
-
-    <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <title>Laravel</title>   
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
+    <link href="{!! asset('/css/Style.css') !!}" rel='stylesheet' type='text/css'>
 </head>
-   
-<body id="app-layout">
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
-                </a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-    <h1>Create</h1>
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Welcome</div>
-
-                <div class="panel-body">
-                {!! link_to_route('posts.published','Published') !!} &nbsp;&nbsp;&nbsp;
-                {!! link_to_route('posts.unpublished','Unpublished') !!} &nbsp;&nbsp;&nbsp;
-                {!! link_to_route('post.create','Create Form') !!} &nbsp;&nbsp;&nbsp;   
-                {!! link_to_route('posts.myposts','My Posts') !!} &nbsp;&nbsp;&nbsp;
-                {!! link_to_route('post.searchform','Search') !!}
-                </div>
-                @yield('content')
-            </div>
-        </div>
-    </div>     
-
-    <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+<body>
+ <div id="main-navigation-container" class="clearfix"> 
+   <div id="main-navigation"> 
+    <ul class="navigation-menu"> 
+      <li><a href="{{ url('/testing') }}">Home</a></li> 
+      <li><a href="">Books&Other</a> 
+      <!-- <ul class="navigation-sub-menu"> 
+        <li><a href="">Sub Menu Item 1</a></li> 
+        <li><a href="">Sub Menu Item 2</a></li> 
+        <li><a href="">Sub Menu Item 3</a></li> 
+       </ul> -->
+      </li> 
+      <li><a href="">Conferences&Events</a> 
+      <!-- <ul class="navigation-sub-menu"> 
+        <li><a href="">Sub Menu Item 1</a></li> 
+        <li><a href="">Sub Menu Item 2</a></li> 
+        <li><a href="">Sub Menu Item 3</a></li> 
+        </ul> -->
+      </li> 
+      <li><a href="">About</a> 
+      <!-- <ul class="navigation-sub-menu"> 
+        <li><a href="">Sub Menu Item 1</a></li> 
+        <li><a href="">Sub Menu Item 2</a></li> 
+        <li><a href="">Sub Menu Item 3</a></li> 
+       </ul> -->
+      </li> 
+      <li><a href="">Help</a> 
+      <!-- <ul class="navigation-sub-menu"> 
+        <li><a href="">Sub Menu Item 1</a></li> 
+        <li><a href="">Sub Menu Item 2</a></li> 
+        <li><a href="">Sub Menu Item 3</a></li> 
+       </ul> -->
+      </li> 
+    </ul> 
+   </div><!--main-navigation -->
+ </div><!--ain-navigation-container-->
+ <div id="box-container">
+     @yield('content')  
+ </div> 
 </body>
 </html>
+
+             

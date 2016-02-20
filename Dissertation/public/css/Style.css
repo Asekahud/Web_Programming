@@ -27,7 +27,7 @@ color: #179b77;
 
 #main-navigation {
   margin: 0px auto 0px auto;
-  width: 600px;
+  width: 650px;
 }
 
 ul.navigation-menu {
@@ -104,7 +104,17 @@ ul.navigation-sub-menu li a:link, .navigation-sub-menu li a:visited {
 *:first-child+html .clearfix {
 	zoom: 1;
 }
-
+/*container box-------------------------------------------------------------------------------------------*/
+#box-container {
+ width: 800px; 
+ height: 720px; 
+ border: 2px solid; 
+ position:absolute; 
+ background-color:#E6E6FA; 
+ margin:0 auto; 
+ left: 350px; 
+ top: 50px;
+}
 /*registration--------------------------------------------------------------------------------------------*/
 *, *:before, *:after { 
 box-sizing: border-box; 
@@ -221,7 +231,7 @@ resize: vertical;
 
 .field-wrap { 
 position: relative; 
-margin-bottom: 40px; 
+margin-bottom: 25px; 
 } 
 
 .top-row:after { 

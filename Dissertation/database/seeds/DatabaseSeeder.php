@@ -19,15 +19,9 @@ class CategoriesSeeder extends Seeder {
     
     public function run() {
         DB::table('categories')->delete();
-        Post::create([
-            'category_name' => 'title',            
-        ]);
-        Post::create([
-            'category_name' => 'slug',            
-        ]);
-        Post::create([
-            'category_name' => 'excerpt',            
-        ]);
+        DB::table('categories')->insert([ 'category_name' => 'title',]);
+        DB::table('categories')->insert([ 'category_name' => 'slug',]);
+        DB::table('categories')->insert([ 'category_name' => 'excerpt',]);      
     }
     
 }

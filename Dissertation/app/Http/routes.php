@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {  return view('welcome');});
-Route::get ('test',['as' => 'test','uses' => 'UserController@index']);
-
+Route::get('/', ['as' => 'start','uses' => 'UserController@index']);
+Route::get ('signup', function () {  return view('register');});
+Route::get ('signin', function () {  return view('login');});
+Route::post ('register',['as' => 'user.register','uses' => 'UserController@register']);
+Route::post ('login',['as' => 'user.login','uses' => 'UserController@login']);
 
 
 /*
@@ -27,18 +29,8 @@ Route::get ('test',['as' => 'test','uses' => 'UserController@index']);
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
+Route::group(['middleware' => ['web']], function () {   
+
+    
 });
 
-Route::group(['middleware' => 'web'], function () {
-    Route::auth();
-
-    Route::get('/home', 'HomeController@index');
-});
-
-Route::group(['middleware' => 'web'], function () {
-    Route::auth();
-
-    Route::get('/home', 'HomeController@index');
-});
