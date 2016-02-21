@@ -3,7 +3,10 @@ overflow-y: scroll;
 } 
 
 body { 
-background: #c1bdba; 
+background-image: url(/images/background.jpg);
+background-repeat:no-repeat;
+background-attachment:fixed;
+background-size:100%;
 font-family: arial, helvetica, sans-serif; 
 } 
 
@@ -18,15 +21,15 @@ color: #179b77;
 } 
 /*Navigation-----------------------------------------------------------------------------------------------*/
 #main-navigation-container {
+  width:800px;
+  margin:0px auto 0px auto;
   border-top: 1px solid #000000;
   border-bottom: 1px solid #000000;
-  background: rgba(19, 35, 47, 0.9);
-  
+  background: #00539B;  
   box-shadow: 0px 0px 5px #000000;
 }
 
 #main-navigation {
-  margin: 0px auto 0px auto;
   width: 650px;
 }
 
@@ -41,8 +44,8 @@ ul.navigation-menu li {
   float: left;
 }
 
-ul.navigation-menu li:hover {
-  background: #1ab188;
+ul.navigation-menu li:hover {  	
+  box-shadow: 0px 0px 5px #000000;
 }
 
 ul.navigation-menu li a:link, .navigation-menu li a:visited {
@@ -110,10 +113,11 @@ ul.navigation-sub-menu li a:link, .navigation-sub-menu li a:visited {
  height: 720px; 
  border: 2px solid; 
  position:absolute; 
- background-color:#E6E6FA; 
+ background: rgba(255,255,255,0.8);
  margin:0 auto; 
- left: 350px; 
- top: 50px;
+ left: 392px; 
+ top: 48px;
+ 
 }
 /*registration--------------------------------------------------------------------------------------------*/
 *, *:before, *:after { 

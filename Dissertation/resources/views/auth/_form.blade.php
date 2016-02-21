@@ -45,7 +45,7 @@
      </div> <!--signup-->
      <div id="login">
         <h1>Welcome Back</h1>
-        <form action="{{ url('/login') }} method="POST"">
+        <form action="{{ url('/login') }}" method="POST">
         {!! csrf_field() !!}
         
          <div class="field-wrap">

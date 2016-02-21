@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
- You signed in
+@if (Auth::guest())
+        You not logged in bitch          
+    @else
+        You logged in bitch
+    @endif
 @endsection
