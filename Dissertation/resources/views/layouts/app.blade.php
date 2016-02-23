@@ -7,6 +7,7 @@
     <link href="{!! asset('/css/Style.css') !!}" rel='stylesheet' type='text/css'>
 </head>
 <body>
+
  <div id="main-navigation-container" class="clearfix"> 
    <div id="main-navigation"> 
     <ul class="navigation-menu"> 
@@ -31,7 +32,7 @@
         <li><a href="">Sub Menu Item 3</a></li> 
        </ul> -->
       </li> 
-      <li><a href="">User</a> 
+      <li id="userlogo"><a href="">Guest</a> 
       <!-- <ul class="navigation-sub-menu"> 
         <li><a href="">Sub Menu Item 1</a></li> 
         <li><a href="">Sub Menu Item 2</a></li> 
@@ -40,10 +41,11 @@
       </li> 
     </ul> 
    </div><!--main-navigation -->
- </div><!--ain-navigation-container-->
+ </div><!--main-navigation-container-->
  <div id="box-container">
      @yield('content')  
- </div> 
+ </div>
+
 </body>
 </html>
 

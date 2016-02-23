@@ -1,36 +1,43 @@
+
 html { 
 overflow-y: scroll; 
 } 
 
 body { 
 background-image: url(/images/background.jpg);
-background-repeat:no-repeat;
-background-attachment:fixed;
-background-size:100%;
+
 font-family: arial, helvetica, sans-serif; 
 } 
-
+img {
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-size:100%;
+}
 a { 
 text-decoration: none; 
-color: #1ab188; 
+color: #060606; 
 -webkit-transition: .5s ease; 
 transition: .5s ease; 
 } 
 a:hover { 
-color: #179b77; 
+color: #003868;   
 } 
 /*Navigation-----------------------------------------------------------------------------------------------*/
 #main-navigation-container {
   width:800px;
   margin:0px auto 0px auto;
-  border-top: 1px solid #000000;
-  border-bottom: 1px solid #000000;
+  border: 2px solid #000000;  
   background: #00539B;  
   box-shadow: 0px 0px 5px #000000;
 }
 
 #main-navigation {
-  width: 650px;
+  
+}
+#userlogo { 
+ text-align: center; 
+ width:100px; 
+ margin-right: 0px;
 }
 
 ul.navigation-menu {
@@ -107,26 +114,28 @@ ul.navigation-sub-menu li a:link, .navigation-sub-menu li a:visited {
 *:first-child+html .clearfix {
 	zoom: 1;
 }
+
 /*container box-------------------------------------------------------------------------------------------*/
 #box-container {
+ margin-left: auto;
+ margin-right:auto;
  width: 800px; 
  height: 720px; 
  border: 2px solid; 
- position:absolute; 
+ 
  background: rgba(255,255,255,0.8);
- margin:0 auto; 
- left: 392px; 
- top: 48px;
+ 
  
 }
-/*registration--------------------------------------------------------------------------------------------*/
+/*registration--------------------------------------------------------------------------------------------*/ 
 *, *:before, *:after { 
 box-sizing: border-box; 
-}
+} 
 
 .form { 
-background: rgba(19, 35, 47, 0.9); 
+background: #FEFCFF; 
 padding: 20px; 
+border: 2px solid #060606; 
 max-width: 400px; 
 margin: 20px auto; 
 border-radius: 4px; 
@@ -147,8 +156,8 @@ clear: both;
 display: block; 
 text-decoration: none; 
 padding: 10px; 
-background: rgba(160, 179, 176, 0.25); 
-color: #a0b3b0; 
+background: #003868; 
+color: #FEFCFF; 
 font-size: 14px; 
 float: left; 
 width: 50%; 
@@ -158,12 +167,12 @@ cursor: pointer;
 transition: .5s ease; 
 } 
 .tab-group li a:hover { 
-background: #179b77; 
-color: #ffffff; 
+background: #00539B; 
+color: #FEFCFF; 
 } 
 .tab-group .active a { 
-background: #1ab188; 
-color: #ffffff; 
+background: #00539B; 
+color: #FEFCFF; 
 } 
 
 .tab-content > div:last-child { 
@@ -172,10 +181,10 @@ display: none;
 
 h1 { 
 text-align: center; 
-color: #ffffff; 
+color: #060606; 
 font-weight: 200; 
-margin: 0 0 20px;
-font-size: 20px;
+margin: 0 0 20px; 
+font-size: 20px; 
 } 
 
 label { 
@@ -183,7 +192,7 @@ position: absolute;
 -webkit-transform: translateY(6px); 
 transform: translateY(6px); 
 left: 13px; 
-color: rgba(255, 255, 255, 0.5); 
+color: #060606; 
 -webkit-transition: all 0.25s ease; 
 transition: all 0.25s ease; 
 -webkit-backface-visibility: hidden; 
@@ -192,7 +201,7 @@ font-size: 14px;
 } 
 label .req { 
 margin: 2px; 
-color: #1ab188; 
+color: #060606; 
 } 
 
 label.active { 
@@ -206,7 +215,7 @@ opacity: 0;
 } 
 
 label.highlight { 
-color: #ffffff; 
+color: #060606; 
 } 
 
 input, textarea { 
@@ -217,15 +226,15 @@ height: 100%;
 padding: 5px 10px; 
 background: none; 
 background-image: none; 
-border: 1px solid #a0b3b0; 
-color: #ffffff; 
+border: 1px solid #060606; 
+color: #060606; 
 border-radius: 0; 
 -webkit-transition: border-color .25s ease, box-shadow .25s ease; 
 transition: border-color .25s ease, box-shadow .25s ease; 
 } 
 input:focus, textarea:focus { 
 outline: 0; 
-border-color: #1ab188; 
+border-color: #003868; 
 } 
 
 textarea { 
@@ -261,23 +270,24 @@ font-size: 1rem;
 font-weight: 600; 
 text-transform: uppercase; 
 letter-spacing: .1em; 
-background: #1ab188; 
+background: #00539B; 
 color: #ffffff; 
 -webkit-transition: all 0.5s ease; 
 transition: all 0.5s ease; 
 -webkit-appearance: none; 
 } 
 .button:hover, .button:focus { 
-background: #179b77; 
+background:#003868; 
 } 
 
 .button-block { 
-display: block;
-font-size:14px;
+display: block; 
+font-size:14px; 
 width: 100%; 
 } 
 
 .forgot { 
 margin-top: -20px; 
-text-align: right; 
+text-align: right;
+
 }
