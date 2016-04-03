@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
+use Illuminate\Support\MessageBag;
 use Validator;
 
 class UserController extends Controller
@@ -49,6 +50,10 @@ class UserController extends Controller
     {
         return $this->getForm();
     }
+     public function add_form()
+    {
+        return view('create');
+    }
     
     /**
      * Get a validator for an incoming registration request.
@@ -59,7 +64,7 @@ class UserController extends Controller
     public function validator(array $data)
     {
         $messages = [
-            'required' => 'The :attribute field is required',
+            'required' => 'This field is required',
             'size' => 'The field must be :size chars',
             'min' => 'The field is too short',
             'max' => 'The field is too long.',
@@ -118,13 +123,17 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-        $email = Request::input('email');
-        $password = Request::input('password');
+        $errors = new MessageBag;
+    
+        $email = Request::input('email_in');
+        $password = Request::input('password_in');
+        
         if (Auth::attempt(['email' => $email,'password' =>$password])) {
             return redirect('/signin');
         }
         else {
-            return redirect()->back();
+            $errors = new MessageBag(['email_in' => ['Email and/or password invalid.']]);
+            return redirect()->back()->withErrors($errors);
         }
     }
 }

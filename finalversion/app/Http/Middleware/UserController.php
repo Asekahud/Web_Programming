@@ -58,15 +58,24 @@ class UserController extends Controller
      */
     public function validator(array $data)
     {
+        $messages = [
+            'required' => 'The :attribute field is required',
+            'size' => 'The field must be :size chars',
+            'min' => 'The field is too short',
+            'max' => 'The field is too long.',
+            'unique' => 'This :attribute already exists.',
+            'email' => 'You should provide valid email address',
+            'confirmed' => 'Passwords does not match!',
+        ];
+               
         return Validator::make($data, [
             'firstname' => 'required|min:3|max:50',
             'lastname' => 'required|min:3|max:50',
-            'student_id' => 'required|max:8|unique:users',
+            'student_id' => 'required|size:8|unique:users',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
+            'password' => 'required|confirmed|min:6',        
+        ],$messages);
     }
-    
     /**
      * Create a new user instance after a valid registration.
      *
@@ -93,9 +102,8 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validator = $this->validator($request::all());
-
         if ($validator->fails()) {
-              return redirect()->back()->withErrors($validator->errors());          
+              return redirect()->back()->withErrors($validator->messages());          
         }
         else {
              $this->create($request::all());             

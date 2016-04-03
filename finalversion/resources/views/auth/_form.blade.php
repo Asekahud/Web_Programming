@@ -1,11 +1,3 @@
-<!--<span class="errors">
-@if (count($errors) > 0)
-  @foreach($errors->all() as $error)
-    <li>{{$error}}</li>
-  @endforeach
-@endif
-<span>-->
-
 <div class="form">
     <ul class="tab-group">
       <li class ="tab active"><a href="#signup">Sign Up</a></li>
@@ -14,7 +6,7 @@
     <div class="tab-content">
      <div id ="signup">
        <h1>Sign Up for Free</h1>
-        <form action="{{ url('/register') }}" method="POST">
+        <form action="{{ url('/register') }}" method="POST" novalidate>
          {!! csrf_field() !!}
          <div class="top-row">                
             <div class="field-wrap">
@@ -31,7 +23,7 @@
             </div><!--field-wrap-->
             
          </div> <!--top row-->
-         <div class="top-row">       
+               
          <div class="field-wrap">
                  @if ($errors->has('student_id'))                    
                    <span class="errors">{{ $errors->first('student_id') }}</span>             
@@ -44,7 +36,7 @@
              @endif               
                 <input type="email" name="email" required autocomplete="off" placeholder="Email Address*" />
          </div><!--field-wrap-->
-          </div>          
+                   
         <div class="field-wrap">
          @if ($errors->has('password'))                    
             <span class="errors">{{ $errors->first('password') }}</span>       
@@ -62,17 +54,18 @@
      </div> <!--signup-->
      <div id="login">
         <h1>Welcome Back</h1>
-        <form action="{{ url('/login') }}" method="POST">
+        <form action="{{ url('/login') }}" method="POST" novalidate>
         {!! csrf_field() !!}
         
          <div class="field-wrap">
-                <label>Email Address <span class="req">*</span></label>
-                <input type="email" name="email" required autocomplete="off" />
+         @if ($errors->has('email_in'))                    
+                <span class="errors">{{ $errors->first('email_in') }}</span>           
+         @endif 
+                <input type="email" name="email_in" required autocomplete="off" placeholder="Email Address*"/>
          </div><!--field-wrap-->
          
-         <div class="field-wrap">
-                <label>Password <span class="req">*</span></label>
-                <input type="password" name="password" required autocomplete="off" />
+         <div class="field-wrap">       
+                <input type="password" name="password_in" required autocomplete="off" placeholder="Password*" />
          </div><!--field-wrap-->
          
          <p class="forgot"><a href="{{ url('/password/reset') }}">Forgot Password?</a></p>

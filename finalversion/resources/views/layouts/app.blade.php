@@ -12,15 +12,23 @@
    <div id="main-navigation"> 
     <ul class="navigation-menu"> 
       <li><a href="{{ url('/') }}">Home</a></li> 
-      <li><a href="">Products</a> 
-      <!-- <ul class="navigation-sub-menu"> 
+      <li><a href="{{ url('/products') }}">Products</a> 
+       <!--<ul class="navigation-sub-menu"> 
         <li><a href="">Books</a></li>         
         <li><a href="">Other</a></li> 
-       </ul> 
-      </li> -->
+       </ul> -->
+      </li> 
       <li><a href="">Events</a></li> 
       <li><a href="">About</a></li>
-      <li id="userlogo"><a href="">Guest</a></li> 
+      <li id="userlogo"><a href="{{ url('/auth') }}">Guest</a>
+        <ul class="navigation-sub-menu"> 
+           <li><a href="{{ url('/addnew') }}">Add New</a>         
+           <li><a href="">My Products</a></li>
+           <li><a href="">My Events</a></li>
+           <li><a href="">My Profile</a></li>
+        </ul>
+    </li>
+      </li>
     </ul>    
    </div><!--main-navigation -->
    <div class="searchform">
