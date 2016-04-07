@@ -12,43 +12,13 @@ use Validator;
 
 class UserController extends Controller
 {
-    /**
-     * Show the application login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getForm()
-    {
-        return $this->showUserForm();
-    }
-    /**
-     * Show the application login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showUserForm()
-    {
-       return view('welcome');
-    }
-     /**
-     * Where to redirect users after login / registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        
     }
-    
-       public function index()
+    public function index()
     {
-        return $this->getForm();
+        return view('welcome');
     }
      public function add_form()
     {
@@ -112,7 +82,7 @@ class UserController extends Controller
         }
         else {
              $this->create($request::all());             
-             return redirect('/signup');
+             return redirect('/');
         }  
     }
     /**
@@ -129,11 +99,22 @@ class UserController extends Controller
         $password = Request::input('password_in');
         
         if (Auth::attempt(['email' => $email,'password' =>$password])) {
-            return redirect('/signin');
+            return redirect('/');
         }
         else {
             $errors = new MessageBag(['email_in' => ['Email and/or password invalid.']]);
             return redirect()->back()->withErrors($errors);
         }
+    }
+    /**
+     * Handle a logout request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout() {
+      Auth::logout();
+      Session:flush();
+      return redirect('/');
     }
 }

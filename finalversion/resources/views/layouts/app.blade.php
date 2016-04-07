@@ -12,22 +12,21 @@
    <div id="main-navigation"> 
     <ul class="navigation-menu"> 
       <li><a href="{{ url('/') }}">Home</a></li> 
-      <li><a href="{{ url('/products') }}">Products</a> 
-       <!--<ul class="navigation-sub-menu"> 
-        <li><a href="">Books</a></li>         
-        <li><a href="">Other</a></li> 
-       </ul> -->
-      </li> 
-      <li><a href="">Events</a></li> 
+      <li><a href="{{ url('/products') }}">Products</a></li> 
+      <li><a href="{{ url('/events') }}">Events</a></li> 
       <li><a href="">About</a></li>
+      @if (Auth::guest())
       <li id="userlogo"><a href="{{ url('/auth') }}">Guest</a>
+      @else
+      <li id="userlogo"><a href="{{ url('/') }}">{{ Auth::user()->firstname }} </a>
         <ul class="navigation-sub-menu"> 
            <li><a href="{{ url('/addnew') }}">Add New</a>         
-           <li><a href="">My Products</a></li>
-           <li><a href="">My Events</a></li>
-           <li><a href="">My Profile</a></li>
+           <li><a href="{{ url('/myproducts') }}">My Stuff</a></li>
+           <li><a href="{{ url('/myevents') }}">My Events</a></li>
+           <li><a href="{{ url('/logout') }}">Log Out</a> 
         </ul>
-    </li>
+     </li>
+     @endif
       </li>
     </ul>    
    </div><!--main-navigation -->
