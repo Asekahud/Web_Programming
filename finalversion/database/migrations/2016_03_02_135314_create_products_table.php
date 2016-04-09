@@ -23,8 +23,7 @@ class CreateProductsTable extends Migration
             $table->text('excerpt');
             $table->text('description');
             $table->string('price');
-        });
-        DB::statement("ALTER TABLE products ADD image LONGBLOB");
+        });        
     }
 
     /**

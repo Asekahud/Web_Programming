@@ -5,7 +5,8 @@
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{!! asset('/css/Style.css') !!}" rel='stylesheet' type='text/css'>
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet" type='text/css'>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <meta name="_token" content="{!! csrf_token() !!}"/>
 </head>
 <body>
  <div id="main-navigation-container" class="clearfix"> 
@@ -37,6 +38,11 @@
  <div id="box-container">
      @yield('content')     
  </div>
+  <script type="text/javascript"> 
+      $.ajaxSetup({ 
+      headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') } 
+      }); 
+</script>
 </body>
 </html>
 

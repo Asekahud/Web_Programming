@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\MessageBag;
 use Validator;
+use DB;
 
 class UserController extends Controller
 {
@@ -116,5 +117,40 @@ class UserController extends Controller
       Auth::logout();
       Session:flush();
       return redirect('/');
+    }
+    public function openChat(Request $request) {
+        
+         $sender_id = $request::input('from_id');
+         $receiver_id = $request::input('to_id');
+         $sender_name = DB::table('users')->select('firstname')->where('id','=',$sender_id)->value('firstname');
+         $receiver_name = DB::table('users')->select('firstname')->where('id','=',$receiver_id)->value('firstname');
+         
+         if ($sender_id == $receiver_id) {
+           return view('auth.error');
+         }
+         {
+            $data = array (
+                'sender_id' => $sender_id,
+                'receiver_id' => $receiver_id,
+                'sender_name' => $sender_name,
+                'receiver_name' => $receiver_name,                
+            );          
+           return view('auth.chatroom',['chat'=>$data]);
+         }
+    }
+    
+    public function sendMessage() {
+         if (Request::ajax()) {
+           $message=Request::input();
+           $data = array(
+            'from_id' =>  $message['sender_id'],
+            'to_id' =>    $message['receiver_id'],
+            'content' => $message['content'],
+            );
+           DB::table('messages')->insert($data);
+         }
+    }
+    public function showChatHistory() {
+        
     }
 }

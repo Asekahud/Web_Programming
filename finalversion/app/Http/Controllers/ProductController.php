@@ -165,12 +165,15 @@ class ProductController extends Controller
         $response->header("Content-Type", $type);        
         return $response;
     }
-    public function test(Request $request) {
-            
-            $file = $request::file('image');
-            $id = DB::table('products')->orderBy('product_id','desc')->value('product_id');
-            $filename = '1'.$id.'.jpg';            
-            Storage::disk('local')->put($filename,File::get($file));
-          
+    public function autocomplete() {
+           
+            $searchterm = Input::get('term');
+            $results=array();
+            $queries=DB::table('products')->where('name','LIKE', '%'.$searchterm.'%')->get();
+            foreach ($queries as $query)
+            {
+                $results[] = ['id' => $query->product_id, 'value' => $query->name];
+            }
+            return Response::json($results);
     }
 }

@@ -7,15 +7,17 @@
             <th>Title</th>
             <th>Excerpt</th>
             <th>Place</th>
+            <th>Guest List</th>
             <th>Change</th>
          </thead>
          <tbody>
   @foreach($events as $event)
             <tr>
             <td>{!! $event->event_id !!}</td>
-            <td>{!! $event->title !!}</td>
+            <td>{!! $event->title !!}</td>            
             <td id="table-excerpt">{!! $event->excerpt !!}</td>
-            <td id="table-excerpt">{!! $event->place !!}</td> 
+            <td id="table-excerpt">{!! $event->place !!}</td>
+            <td> {!! link_to_route('event.guest_list','Show',$event->event_id) !!}</td>
               <td>
                   {!! link_to_route('event.updateForm','Edit',$event->event_id) !!} |
                   {!! link_to_route('event.delete','Delete',$event->event_id)  !!}

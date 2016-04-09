@@ -127,4 +127,45 @@ class EventController extends Controller
              return redirect('/events');
         }  
     }
+    public function book(Request $request) {      
+        $event = $request::input('event_id');
+        $user = $request::input('user_id');
+        $owner = $request::input('owner_id');
+        
+        if ($event == $owner) {
+            $message="You cannot book place to your own event!!!";
+            return view('event.confirmation', ['message' => $message]);
+        }
+        else {
+         $exist = DB::table('event_user')
+              ->where('event_id','=',$event)
+              ->where('user_id','=',$user)
+              ->first();
+         
+         if (is_null($exist))
+         {
+              $booking = array(
+               'event_id' => $event,
+               'user_id' => $user,
+              );
+              DB::table('event_user')->insert($booking);
+              $message="You successfully registered to the event";
+              return view('event.confirmation', ['message' => $message]);
+         }
+         else
+         {
+             $message="You already booked place to that event!!!";
+             return view('event.confirmation', ['message' => $message]);            
+         }
+        }
+    }
+    public function guestlist($id) {      
+     
+    $guests = DB::table('event_user')->where('event_user.event_id',$id)
+        ->join('events', 'event_user.event_id','=','events.event_id')
+        ->join('users', 'event_user.user_id','=','users.id')
+        ->paginate(10);     
+     return view('event.guest_list',['guests'=>$guests]);
+    
+    }
 }
