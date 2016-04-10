@@ -1,7 +1,8 @@
 <!DOCTYPE html> 
 <html lang="en">
 <head> 
-    <title>Laravel</title>   
+    <title>Laravel</title>
+    <h> Crazy Header</h>
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{!! asset('/css/Style.css') !!}" rel='stylesheet' type='text/css'>
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet" type='text/css'>

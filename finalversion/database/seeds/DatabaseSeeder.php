@@ -128,7 +128,7 @@ class ProductsSeeder extends Seeder {
             'description' => 'Letters to a Law Student relays all that a prospective law student needs to know before embarking on their studies. It provides a useful guide to those considering a law degree or conversion course and helps students prepare for what can be a daunting first year of stud',
             'link'=>'http://www.amazon.co.uk/Law-Context-Stephen-Bottomley/dp/1862878420/ref=sr_1_1?s=books&ie=UTF8&qid=1460311077&sr=1-1&keywords=law+in+context',
             'price' => '£14',                     
-        ]);        
+        ]);       
         Product::create([
             'category_id' => '1',
             'user_id' => '2',
@@ -528,7 +528,7 @@ class ProductsSeeder extends Seeder {
             'description' => 'Letters to a Law Student relays all that a prospective law student needs to know before embarking on their studies. It provides a useful guide to those considering a law degree or conversion course and helps students prepare for what can be a daunting first year of stud',
             'link'=> '',
             'price' => '£14',                     
-        ]);        
+        ]);       
     }
 }
 
