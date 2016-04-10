@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('school');
             $table->text('excerpt');
             $table->text('description');
+            $table->text('link');
             $table->string('price');
         });        
     }

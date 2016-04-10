@@ -4,7 +4,16 @@
       <p class="test">From: {{ $chat['sender_name'] }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To: {{ $chat['receiver_name'] }} <p> 
    </div>
    <div class="chatspace">
-   
+   @if(count($messages)>0) 
+       @foreach($messages as $message) 
+         @if ( $message->from_id == $chat['sender_id'])
+            {{ $chat['sender_name'] }}: {{$message->content}} <br>
+         @else
+            {{ $chat['receiver_name'] }}: {{$message->content}} <br>
+         @endif
+       @endforeach   
+   @else    
+   @endif
    </div> 
    <div class="message-form"> 
         {!! Form::open(array('url'=>'user/send','method'=>'POST', 'id'=>'myform')) !!}
@@ -14,5 +23,6 @@
         {!! Form::button('Send Message', array('class'=>'send-button')) !!} 
         {!! Form::close() !!}
    </div>      
-   <script type='text/javascript' src="{!! asset('/js/send-message.js') !!}" ></script>   
+   
+   <script type='text/javascript' src="{!! asset('/js/display-message.js') !!}" ></script> 
 @endsection

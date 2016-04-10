@@ -124,7 +124,7 @@ class UserController extends Controller
          $receiver_id = $request::input('to_id');
          $sender_name = DB::table('users')->select('firstname')->where('id','=',$sender_id)->value('firstname');
          $receiver_name = DB::table('users')->select('firstname')->where('id','=',$receiver_id)->value('firstname');
-         
+                  
          if ($sender_id == $receiver_id) {
            return view('auth.error');
          }
@@ -134,8 +134,10 @@ class UserController extends Controller
                 'receiver_id' => $receiver_id,
                 'sender_name' => $sender_name,
                 'receiver_name' => $receiver_name,                
-            );          
-           return view('auth.chatroom',['chat'=>$data]);
+            );
+            
+            $messages = $this->getChatHistory($sender_id,$receiver_id);           
+            return view('auth.chatroom',['chat'=>$data,'messages'=>$messages]);
          }
     }
     
@@ -150,7 +152,33 @@ class UserController extends Controller
            DB::table('messages')->insert($data);
          }
     }
-    public function showChatHistory() {
+    public function getChatHistory($from_id, $to_id) {
         
+        $messages=DB::table('messages')
+            ->where(function ($query) use($from_id,$to_id) {
+                $query->where('from_id',$from_id)
+                      ->where('to_id',$to_id);
+            })
+            ->orWhere(function ($query) use($from_id,$to_id) {
+                $query->where('from_id', $to_id)
+                      ->where('to_id', $from_id);
+            })->get();       
+        return $messages;        
     }
+    public function getLastInsertedMessage($from_id, $to_id) {
+        if (Request::ajax()) {
+        $message=DB::table('messages')
+            ->where(function ($query) use($from_id,$to_id) {
+                $query->where('from_id',$from_id)
+                      ->where('to_id',$to_id);
+            })
+            ->orWhere(function ($query) use($from_id,$to_id) {
+                $query->where('from_id', $to_id)
+                      ->where('to_id', $from_id);
+            })->orderBy('message_id','desc')->first();       
+        return $message;
+        }
+    }
+    
+    
 }
