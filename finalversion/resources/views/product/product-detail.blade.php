@@ -13,6 +13,7 @@
   <p><b>Category: </b> {{ $product->category_name}}</p>
   <p><b>Owner: </b> {{ $product->firstname }} {{ $product->lastname }} {{ $product->student_id}}</p>
   <p><b>Contact Info: </b> {{ $product->email }}</p>
+  <p><b>Link To Similar Product: </b> <a href="{{ $product->link }}">Click This</a></p>
   <p><b>Description: </b> {{ $product->description }}</p>
   @if (Auth::check())
   <form action="{{ url('/user/chatroom') }}" method="POST" class="book-button">

@@ -1,8 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en">
 <head> 
-    <title>Laravel</title>
-    <h> Crazy Header Yoloooo</h>
+    <title>Laravel</title>    
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{!! asset('/css/Style.css') !!}" rel='stylesheet' type='text/css'>
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet" type='text/css'>
@@ -25,6 +24,7 @@
            <li><a href="{{ url('/addnew') }}">Add New</a>         
            <li><a href="{{ url('/myproducts') }}">My Stuff</a></li>
            <li><a href="{{ url('/myevents') }}">My Events</a></li>
+           <li><a href="{{ url('/mychats') }}">My Events</a></li>
            <li><a href="{{ url('/logout') }}">Log Out</a> 
         </ul>
      </li>

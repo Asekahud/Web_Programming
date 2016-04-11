@@ -33,7 +33,7 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('logout', ['as' => 'logout','uses' => 'UserController@logout']);
   Route::post ('user/chatroom',['as' => 'user.open_chat','uses' => 'UserController@openChat']);
   Route::post ('user/send',['as' => 'user.send_message','uses' => 'UserController@sendMessage']);
-  Route::get ('/message/display',['as' => 'user.display_message','uses' => 'UserController@getLastInsertedMessage']);
+  Route::post ('message/display',['as' => 'user.display_message','uses' => 'UserController@getLastInsertedMessage']);
   
   Route::get('products', ['as' => 'product.showall','uses' => 'ProductController@showAll']);
   Route::get('myproducts', ['as' => 'product.showall','uses' => 'ProductController@getMyProducts']);

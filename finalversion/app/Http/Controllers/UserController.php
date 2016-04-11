@@ -165,9 +165,14 @@ class UserController extends Controller
             })->get();       
         return $messages;        
     }
-    public function getLastInsertedMessage($from_id, $to_id) {
+    public function getLastInsertedMessage() {
         if (Request::ajax()) {
-        $message=DB::table('messages')
+            
+         $data=Request::input();
+         $from_id = $data['sender_id'];
+         $to_id = $data['receiver_id'];
+         
+         $message=DB::table('messages')
             ->where(function ($query) use($from_id,$to_id) {
                 $query->where('from_id',$from_id)
                       ->where('to_id',$to_id);
@@ -176,7 +181,7 @@ class UserController extends Controller
                 $query->where('from_id', $to_id)
                       ->where('to_id', $from_id);
             })->orderBy('message_id','desc')->first();       
-        return $message;
+        return Response::json($message);
         }
     }
     
