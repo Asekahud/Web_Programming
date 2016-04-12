@@ -24,7 +24,7 @@
            <li><a href="{{ url('/addnew') }}">Add New</a>         
            <li><a href="{{ url('/myproducts') }}">My Stuff</a></li>
            <li><a href="{{ url('/myevents') }}">My Events</a></li>
-           <li><a href="{{ url('/mychats') }}">My Events</a></li>
+           <li><a href="{{ url('/mychats') }}">My Chats</a></li>
            <li><a href="{{ url('/logout') }}">Log Out</a> 
         </ul>
      </li>

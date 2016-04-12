@@ -118,6 +118,9 @@ class UserController extends Controller
       Session:flush();
       return redirect('/');
     }
+    public function getUserChats() {
+      
+    }
     public function openChat(Request $request) {
         
          $sender_id = $request::input('from_id');
