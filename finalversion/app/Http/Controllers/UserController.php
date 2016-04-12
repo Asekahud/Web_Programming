@@ -10,6 +10,7 @@ use Auth;
 use Illuminate\Support\MessageBag;
 use Validator;
 use DB;
+use Response;
 
 class UserController extends Controller
 {
@@ -67,8 +68,7 @@ class UserController extends Controller
             'student_id' => $data['student_id'],
             'password' => bcrypt($data['password']),
         ]);
-    }
-    
+    }    
      /**
      * Handle a registration request for the application.
      *
@@ -118,6 +118,9 @@ class UserController extends Controller
       Session:flush();
       return redirect('/');
     }
+    public function getUserChats() {
+      
+    }
     public function openChat(Request $request) {
         
          $sender_id = $request::input('from_id');
@@ -136,7 +139,7 @@ class UserController extends Controller
                 'receiver_name' => $receiver_name,                
             );
             
-            $messages = $this->getChatHistory($sender_id,$receiver_id);           
+            $messages = $this->getChatHistory($sender_id,$receiver_id);
             return view('auth.chatroom',['chat'=>$data,'messages'=>$messages]);
          }
     }
@@ -147,7 +150,7 @@ class UserController extends Controller
            $data = array(
             'from_id' =>  $message['sender_id'],
             'to_id' =>    $message['receiver_id'],
-            'content' => $message['content'],
+            'content' => $message['content'],         
             );
            DB::table('messages')->insert($data);
          }
@@ -162,23 +165,54 @@ class UserController extends Controller
             ->orWhere(function ($query) use($from_id,$to_id) {
                 $query->where('from_id', $to_id)
                       ->where('to_id', $from_id);
-            })->get();       
+            })->get();
+       
+         foreach ($messages as $message) {
+            DB::table('messages')
+               ->where('from_id',$message->from_id)
+               ->update(['sender_read'=>true]);
+            DB::table('messages')
+               ->where('to_id',$message->from_id)
+               ->update(['receiver_read'=>true]);
+         }
+        
         return $messages;        
     }
-    public function getLastInsertedMessage($from_id, $to_id) {
+    public function getUnreadMessages() {
+      
         if (Request::ajax()) {
-        $message=DB::table('messages')
+            
+         $data=Request::input();
+         $from_id = $data['sender_id'];
+         $to_id = $data['receiver_id'];
+         
+          $messages=DB::table('messages')
             ->where(function ($query) use($from_id,$to_id) {
                 $query->where('from_id',$from_id)
-                      ->where('to_id',$to_id);
+                      ->where('to_id',$to_id)
+                      ->where('sender_read',false);
             })
             ->orWhere(function ($query) use($from_id,$to_id) {
                 $query->where('from_id', $to_id)
-                      ->where('to_id', $from_id);
-            })->orderBy('message_id','desc')->first();       
-        return $message;
+                      ->where('to_id', $from_id)
+                      ->where('receiver_read',false);
+            })->get();           
+           $results=array();
+           foreach ($messages as $message) {                   
+               
+               DB::table('messages')
+                 ->where('from_id',$message->from_id)
+                 ->update(['sender_read'=>true]);
+               DB::table('messages')
+                 ->where('to_id',$message->from_id)
+                 ->update(['receiver_read'=>true]);
+                $results[] = ['from_id' => $message->from_id, 'to_id' => $message->to_id, 'content' => $message->content];
+             }
+             
+            return Response::json($results);
         }
     }
-    
-    
 }
+    
+    
+

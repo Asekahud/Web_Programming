@@ -31,9 +31,10 @@ Route::group(['middleware' => ['web']], function () {
   Route::post ('register',['as' => 'user.register','uses' => 'UserController@register']);
   Route::post ('login',['as' => 'user.login','uses' => 'UserController@login']);
   Route::get('logout', ['as' => 'logout','uses' => 'UserController@logout']);
+  Route::get('mychats', ['as' => 'chats','uses' => 'UserController@getUserChats']);
   Route::post ('user/chatroom',['as' => 'user.open_chat','uses' => 'UserController@openChat']);
   Route::post ('user/send',['as' => 'user.send_message','uses' => 'UserController@sendMessage']);
-  Route::get ('/message/display',['as' => 'user.display_message','uses' => 'UserController@getLastInsertedMessage']);
+  Route::post ('/message/display',['as' => 'user.display_message','uses' => 'UserController@getUnreadMessages']);
   
   Route::get('products', ['as' => 'product.showall','uses' => 'ProductController@showAll']);
   Route::get('myproducts', ['as' => 'product.showall','uses' => 'ProductController@getMyProducts']);
