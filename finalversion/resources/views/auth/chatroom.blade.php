@@ -3,7 +3,7 @@
    <div class="header"> 
       <p class="test">From: {{ $chat['sender_name'] }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To: {{ $chat['receiver_name'] }} <p> 
    </div>
-   <div class="chatspace">
+   <div id="chat" class="chatspace">
    @if(count($messages)>0) 
        @foreach($messages as $message) 
          @if ( $message->from_id == $chat['sender_id'])
@@ -18,11 +18,12 @@
    <div class="message-form"> 
         {!! Form::open() !!}
         <input type="hidden" name="sender_id" value="{{ $chat['sender_id'] }}"/>
-        <input type="hidden" name="receiver_id" value="{{ $chat['receiver_id'] }}"/> 
+        <input type="hidden" name="receiver_id" value="{{ $chat['receiver_id'] }}"/>
+        <input type="hidden" name="receiver_name" value="{{ $chat['receiver_name'] }}"/> 
         <textarea class="message" name="content" placeholder="Enter your message here" name="message"></textarea>       
         {!! Form::button('Send Message', array('class'=>'send-button')) !!} 
         {!! Form::close() !!}
-   </div>      
-   
-   <script type='text/javascript' src="{!! asset('/js/display-message.js') !!}" ></script> 
+   </div>
+      <script type='text/javascript' src="{!! asset('/js/send-message.js') !!}" ></script>
+      <script type='text/javascript' src="{!! asset('/js/display-message.js') !!}" ></script> 
 @endsection

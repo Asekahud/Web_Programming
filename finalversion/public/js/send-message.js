@@ -1,4 +1,4 @@
-$(document).ready(function addMessage(){ 
+$(document).ready(function (){ 
  $('.send-button').click(function(){ 
    $.ajax({ 
      url: '/user/send', 

@@ -18,6 +18,8 @@ class CreateMessageTable extends Migration
             $table->foreign('from_id')->references('id')->on('users');
             $table->integer('to_id')->unsigned();
             $table->foreign('to_id')->references('id')->on('users');
+            $table->boolean('sender_read')->default(false);
+            $table->boolean('receiver_read')->default(false);
             $table->text('content');            
         });      
     }
