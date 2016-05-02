@@ -9,16 +9,13 @@ function checkDB(){
      success:function(response) {
         for (var i=0; i < response.length;i++) {
           if (response[i].from_id ==  $('input[name=sender_id]').val()) {
-            $('.chatspace').append("Me:"+response[i].content +"<br>");
+            $('.chatspace').append("Me: "+response[i].content +"<br>");
           }
           else {
-            $('.chatspace').append($('input[name=receiver_name]').val()+":"+response[i].content+"<br>");
+            $('.chatspace').append($('input[name=receiver_name]').val()+" :"+response[i].content+"<br>");
           }           
         }
-     },
-     error: function(data) {
-       alert("Not Yolooo");
-     }    
+     },        
    }); 
   }; 
 }); 

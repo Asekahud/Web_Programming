@@ -1,5 +1,15 @@
 @extends('layouts.app')
 @section('content')
+    @if(Session::has('message'))
+     <div class="confirmation">
+        {{ Session::get('message') }}
+     </div>    
+    @endif
+    <div class="create-div">
+        {!! Form::open(array('url'=>'product/createForm', 'method'=>'GET')) !!}           
+        {!! Form::submit('Add New Product', array('class'=>'create-button')) !!} 
+        {!! Form::close() !!}
+    </div>
     @if(count($products)>0)   
     <table><caption id="table-header">Your Products</caption>
          <thead>
@@ -25,6 +35,8 @@
      </tbody>          
 </table>
  @else
-   <p>You don't have any products!</p>
+   <div class="message-div">
+    <p>You don't have any products!</p>
+   </div>
  @endif
 @endsection

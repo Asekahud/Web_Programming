@@ -1,9 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-namespace App\Http\Controllers;
-
 use Request;
 use App\Models\Event;
 use App\Http\Requests;
@@ -12,6 +9,9 @@ use DB;
 use Session;
 use Validator;
 use Auth;
+use Storage;
+use File;
+use Response;
 
 class EventController extends Controller
 {
@@ -19,6 +19,10 @@ class EventController extends Controller
     {
         $events = DB::table('events')->paginate(10);       
         return view('event.allevents', ['events' => $events]);
+    }
+    public function createForm()
+    {
+        return view('event.form');
     }
     
    public function showDetails($id)
@@ -46,6 +50,7 @@ class EventController extends Controller
      public function update(Request $request) {
         $validator = $this->validator($request::all());
         if ($validator->fails()) {
+              \Session::flash('message','You failed validation. Try Again!');
               return redirect()->back()->withErrors($validator->messages());          
         }
         else {
@@ -57,10 +62,10 @@ class EventController extends Controller
             'space_remained' =>  $event['space_remained'],
             'excerpt' =>  $event['excerpt'],            
             'description' =>  $event['description'],
-            'user_id' => Auth::user()->id,
-            'image' => 'url(/images/business1.jpg)',
+            'user_id' => Auth::user()->id,           
             );
              $update = DB::table('events')->where('event_id',$data['event_id'])->update($data);             
+             \Session::flash('message','Event have been successfully updated ');  
              return redirect('myevents');
         }
      }
@@ -69,7 +74,7 @@ class EventController extends Controller
         $delete = DB::table('events')->where('event_id',$id)->delete();
         if ($delete > 0)
         {
-            \Session::flash('message','Post have been deleted succesfully');
+            \Session::flash('message','Event have been succesfully deleted');
             return redirect('myevents');
         }
     }
@@ -82,20 +87,18 @@ class EventController extends Controller
     public function validator(array $data)
     {
         $messages = [
-            'required' => 'This field is required',
-            'size' => 'The field must be :size chars',
-            'min' => 'The field is too short',
-            'max' => 'The field is too long.',
-            'unique' => 'This :attribute already exists.',
-            'email' => 'You should provide valid email address',           
+            'required' => 'The :attribute is required',            
+            'min' => 'The :attribute  is too short',
+            'max' => 'The :attribute  is too long.',
+            'numeric' => 'The :attribute  must be numeric type',
         ];
                
         return Validator::make($data, [
-            'title' => 'required|min:5|max:50',
-            'place' => 'required|min:2|max:20',
+            'title' => 'required|min:5',
+            'place' => 'required|min:6',
             'space_remained' => 'required|numeric',
-            'excerpt' => 'required|min:15|max:40',
-            'description' => 'required|min:40|max:255',                  
+            'excerpt' => 'required|min:6',
+            'description' => 'required|min:10',                  
         ],$messages);
     }
     public function create(array $data)
@@ -106,8 +109,7 @@ class EventController extends Controller
             'space_remained' => $data['space_remained'],
             'excerpt' => $data['excerpt'],            
             'description' => $data['description'],
-            'user_id' => Auth::user()->id,
-            'image' => 'url(/images/business1.jpg)',
+            'user_id' => Auth::user()->id,    
         ]);
     }
     /**
@@ -120,52 +122,75 @@ class EventController extends Controller
               
         $validator = $this->validator($request::all());
         if ($validator->fails()) {
+              \Session::flash('message','You failed validation. Try Again!');
               return redirect()->back()->withErrors($validator->messages());          
         }
         else {
              $this->create($request::all());             
-             return redirect('/events');
+             \Session::flash('message','Event have been successfully added '); 
+             return redirect('/myevents');
         }  
     }
-    public function book(Request $request) {      
+    public function book(Request $request)
+    {      
         $event = $request::input('event_id');
         $user = $request::input('user_id');
         $owner = $request::input('owner_id');
         
         if ($event == $owner) {
-            $message="You cannot book place to your own event!!!";
-            return view('event.confirmation', ['message' => $message]);
+            \Session::flash('error','You cannot book place to your own event!!!');            
+            return redirect()->back();
         }
         else {
-         $exist = DB::table('event_user')
-              ->where('event_id','=',$event)
-              ->where('user_id','=',$user)
-              ->first();
+          $space = DB::table('events')->where('event_id',$event)->value('space_remained');
+          if ($space == 0 )
+           {
+             \Session::flash('error','There is no space left in this event!!!');            
+             return redirect()->back();
+           }
+          else {
+            $exist = DB::table('event_user')
+                ->where('event_id','=',$event)
+                ->where('user_id','=',$user)
+                ->first();
          
-         if (is_null($exist))
-         {
+           if (is_null($exist))
+            {
               $booking = array(
                'event_id' => $event,
                'user_id' => $user,
               );
               DB::table('event_user')->insert($booking);
-              $message="You successfully registered to the event";
-              return view('event.confirmation', ['message' => $message]);
-         }
-         else
-         {
-             $message="You already booked place to that event!!!";
-             return view('event.confirmation', ['message' => $message]);            
-         }
+              DB::table('events')->where('event_id',$event)->decrement('space_remained'); 
+               \Session::flash('confirmation','You succesfully booked place to the event');      
+              return redirect()->back();
+             }
+           else
+            {
+             \Session::flash('error','You already booked place to that event!');
+             return redirect()->back();          
+            }
+           }
         }
     }
-    public function guestlist($id) {      
+    public function guestlist($id)
+    {      
      
-    $guests = DB::table('event_user')->where('event_user.event_id',$id)
-        ->join('events', 'event_user.event_id','=','events.event_id')
-        ->join('users', 'event_user.user_id','=','users.id')
-        ->paginate(10);     
-     return view('event.guest_list',['guests'=>$guests]);
-    
+     $guests = DB::table('event_user')->where('event_user.event_id',$id)
+         ->join('events', 'event_user.event_id','=','events.event_id')
+         ->join('users', 'event_user.user_id','=','users.id')
+         ->paginate(10);     
+      return view('event.guest_list',['guests'=>$guests]);    
+    }
+    public function getImage($filename) {
+        
+        $path = storage_path() . '/app/product/Event-' . $filename.'.jpg';
+        
+        $file = File::get($path); 
+        $type = File::mimeType($path);
+        
+        $response = Response::make($file, 200); 
+        $response->header("Content-Type", $type);        
+        return $response;
     }
 }

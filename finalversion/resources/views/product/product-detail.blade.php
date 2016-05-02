@@ -3,15 +3,14 @@
 @section('content')
 <section>
  <div id="product-image">
-  <p> <img src="{{ route('product.image',['filename'=>$product->product_id]) }}" class="product-photo"></p>
-  
+  <p> <img src="{{ route('product.image',['filename'=>$product->product_id]) }}" class="product-photo"></p>  
 </div>
 <div id="product-info">
   <p><b>Name: </b> {{ $product->name}}</p>
   <p><b>School: </b> {{ $product->school}}</p>
   <p><b>Price: </b> {{ $product->price}}</p>
   <p><b>Category: </b> {{ $product->category_name}}</p>
-  <p><b>Owner: </b> {{ $product->firstname }} {{ $product->lastname }} {{ $product->student_id}}</p>
+  <p><b>Owner: </b> {{ $product->firstname }} {{ $product->lastname }}</p>
   <p><b>Contact Info: </b> {{ $product->email }}</p>
   <p><b>Link To Similar Product: </b> <a href="{{ $product->link }}">Click This</a></p>
   <p><b>Description: </b> {{ $product->description }}</p>

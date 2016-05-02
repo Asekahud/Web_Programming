@@ -1,15 +1,23 @@
 @extends('layouts.app')
-
 @section('content')
+@if(Session::has('error'))
+   <div class="fail">
+        {{ Session::get('error') }}
+   </div>
+  @elseif(Session::has('confirmation'))
+   <div class="confirmation">
+        {{ Session::get('confirmation') }}
+   </div>
+  @endif
 <section>
  <div id="product-image">
-
+   <p> <img src="{{ route('event.image',['filename'=>$event->event_id]) }}" class="product-photo"></p>
 </div>
 <div id="product-info">
   <p><b>Title: </b> {{ $event->title}}</p>
   <p><b>Place: </b> {{ $event->place}}</p>
   <p><b>Space Remained: </b> {{ $event->space_remained}}</p>
-  <p><b>Organsier: </b> {{ $event->firstname }} {{ $event->lastname }} {{ $event->student_id}}</p>
+  <p><b>Organsier: </b> {{ $event->firstname }} {{ $event->lastname }} </p>
   <p><b>Description: </b> {{ $event->description }}</p>
   @if (Auth::check())
   <form action="{{ url('/event/book') }}" method="POST" class="book-button">

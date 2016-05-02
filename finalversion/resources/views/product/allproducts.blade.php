@@ -15,9 +15,8 @@
               <td id="table-excerpt">{!!$product->excerpt!!}</td>
               <td id="table-excerpt">{!!$product->price !!}</td>              
             </tr>
- @endforeach
-     
-     </tbody>
-          {!!$products->render()!!}
+ @endforeach     
+     </tbody>          
 </table>
+   {!! $products->render() !!}
 @endsection

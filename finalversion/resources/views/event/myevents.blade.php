@@ -1,5 +1,15 @@
 @extends('layouts.app')
 @section('content')
+ @if(Session::has('message'))
+     <div class="confirmation">
+        {{ Session::get('message') }}
+     </div>    
+  @endif
+ <div class="create-div">
+     {!! Form::open(array('url'=>'event/createForm', 'method'=>'GET')) !!}           
+     {!! Form::submit('Organise New Event', array('class'=>'create-button')) !!} 
+     {!! Form::close() !!}
+ </div>
 @if(count($events)>0)   
     <table><caption id="table-header">Your Events</caption>
          <thead>
@@ -27,6 +37,8 @@
      </tbody>          
 </table>
  @else
+ <div class="message-div">
    <p>You don't have any events organised!</p>
+ </div>
  @endif
 @endsection

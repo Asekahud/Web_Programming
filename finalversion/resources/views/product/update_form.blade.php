@@ -1,9 +1,14 @@
 @extends('layouts.app')
  @section('content')
+@if(Session::has('message'))
+  <div class="fail">
+    {{ Session::get('message') }}
+  </div>    
+@endif
 <div class="form">
   <div class="tab-content"> 
   <h1>Update Product</h1> 
-<form action="{{ url('/product/update') }}" method="POST" novalidate>
+  <form action="{{ url('/product/update') }}" method="POST" novalidate>
        {!! csrf_field() !!}
        <div class="top-row"> 
         <div class="field-wrap">
@@ -34,13 +39,13 @@
     </div> 
     <div class="field-wrap">
       @if ($errors->has('excerpt'))                    
-          <span class="errors">{{ $errors->first('excerpt') }}</span>                 
+          <span class="exc-errors">{{ $errors->first('excerpt') }}</span>                 
        @endif
      <textarea name="excerpt" class="excerpt" placeholder="Excerpt">{{ $product->excerpt }}</textarea> 
     </div><!--field-wrap--> 
     <div class="field-wrap">
      @if ($errors->has('description'))                    
-          <span class="errors">{{ $errors->first('description') }}</span>                 
+          <span class="desc-errors">{{ $errors->first('description') }}</span>                 
      @endif
      <textarea name="description" class="description" placeholder="Description">{{ $product->description }}</textarea> 
     </div><!--field-wrap--> 

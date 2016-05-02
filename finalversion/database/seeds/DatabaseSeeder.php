@@ -40,35 +40,31 @@ class UsersSeeder extends Seeder {
     public function run() {
         DB::table('users')->delete();
         User::create([
-            'student_id' => 'u1277006',
             'firstname' => 'Asset',
             'lastname' => 'Aitbayev',
             'email' => 'asekahud@gmail.com',
+            'admin' => true,
             'password' => bcrypt('lss412'),                       
         ]);
         User::create([
-            'student_id' => 'u1143507',
             'firstname' => 'Ali',
             'lastname' => 'Tursungaliev',
             'email' => 'alikhan@gmail.com',
             'password' => bcrypt('lss412'),                          
         ]);
         User::create([
-            'student_id' => 'u1361218',
             'firstname' => 'Alimzhan',
             'lastname' => 'Amangeldiev',
             'email' => 'a_alimzhan@gmail.com',
             'password' => bcrypt('lss412'),                          
         ]);
         User::create([
-            'student_id' => 'u1427219',
             'firstname' => 'Artur',
             'lastname' => 'Semeyutin',
             'email' => 'semeyutin@gmail.com',
             'password' => bcrypt('lss412'),                         
         ]);
         User::create([
-            'student_id' => 'u1251317',
             'firstname' => 'Alisher',
             'lastname' => 'Amangeldiev',
             'email' => 'alisher@gmail.com',
@@ -378,156 +374,6 @@ class ProductsSeeder extends Seeder {
             'description' => 'Company Law in Context is an ideal main text for company law and corporate governance courses at both undergraduate and postgraduate level. In this sophisticated book,',
             'link'=> 'http://www.amazon.co.uk/Company-Law-Context-Text-materials/dp/0199609322/ref=sr_1_8?s=books&ie=UTF8&qid=1460311077&sr=1-8&keywords=law+in+context',
             'price' => '£47',                     
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '2',
-            'name' => 'Business 1',
-            'school' => 'Business Studies',
-            'excerpt' => 'This bestselling textbook has been extensively revised, reorganised...',
-            'description' => 'This bestselling textbook has been extensively revised, reorganised and updated for the AS and A Level Business Studies specifications from September 2008. The 4th edition of this market-leading text from the respected and trusted team of authors - Dave Hall, Carlo Raffo and Rob Jones.',
-            'link'=> '',
-            'price' => '£30',          
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '2',
-            'name' => 'Engineering 1',
-            'school' => 'Engineering',
-            'excerpt' => 'If there is a successor to Make: Electronics, then I believe it would have to...',
-            'description' => 'If there is a successor to Make: Electronics, then I believe it would have to be Practical Electronics for Inventors perfect for an electrical engineering student or maybe a high school student with a strong aptitude for electronics....I’ve been anxiously awaiting this update, and it was well worth the wait."',
-            'link'=> '',
-            'price' => '£22',            
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '3',
-            'name' => 'Computing 1',
-            'school' => 'Computing Science',
-            'excerpt' => 'Accept no imitations! Practise for your exams on the genuine Higher Specimen Paper and...',
-            'description' => 'Accept no imitations! Practise for your exams on the genuine Higher Specimen Paper and 2015 Past Paper from the Scottish Qualifications Authority, and three specially-commissioned Hodder Gibson Model Papers',
-            'link'=> '',
-            'price' => '£8',           
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '3',
-            'name' => 'Computing 2',
-            'school' => 'Computing Science',
-            'excerpt' => 'AQA A-level Computer Science gives students the chance to think creatively and progress...',
-            'description' => 'AQA A-level Computer Science gives students the chance to think creatively and progress through the AQA AS and A-level Computer Science specifications. Detailed coverage of the specifications will enrich understanding of the fundamental principles of computing, whilst a range of activities help to develop the programming skills and computational thinking skills at A-level and beyon',
-            'link'=> '',
-            'price' => '£25',            
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '4',
-            'name' => 'Law 1',
-            'school' => 'School of Law',
-            'excerpt' => 'Letters to a Law Student relays all that a prospective law student needs to know before embarking...',
-            'description' => 'Letters to a Law Student relays all that a prospective law student needs to know before embarking on their studies. It provides a useful guide to those considering a law degree or conversion course and helps students prepare for what can be a daunting first year of stud',
-            'link'=> '',
-            'price' => '£14',                     
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '2',
-            'name' => 'Business 1',
-            'school' => 'Business Studies',
-            'excerpt' => 'This bestselling textbook has been extensively revised, reorganised...',
-            'description' => 'This bestselling textbook has been extensively revised, reorganised and updated for the AS and A Level Business Studies specifications from September 2008. The 4th edition of this market-leading text from the respected and trusted team of authors - Dave Hall, Carlo Raffo and Rob Jones.',
-            'link'=> '',
-            'price' => '£30',          
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '2',
-            'name' => 'Engineering 1',
-            'school' => 'Engineering',
-            'excerpt' => 'If there is a successor to Make: Electronics, then I believe it would have to...',
-            'description' => 'If there is a successor to Make: Electronics, then I believe it would have to be Practical Electronics for Inventors perfect for an electrical engineering student or maybe a high school student with a strong aptitude for electronics....I’ve been anxiously awaiting this update, and it was well worth the wait."',
-            'link'=> '',
-            'price' => '£22',            
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '3',
-            'name' => 'Computing 1',
-            'school' => 'Computing Science',
-            'excerpt' => 'Accept no imitations! Practise for your exams on the genuine Higher Specimen Paper and...',
-            'description' => 'Accept no imitations! Practise for your exams on the genuine Higher Specimen Paper and 2015 Past Paper from the Scottish Qualifications Authority, and three specially-commissioned Hodder Gibson Model Papers',
-            'link'=> '',
-            'price' => '£8',           
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '3',
-            'name' => 'Computing 2',
-            'school' => 'Computing Science',
-            'excerpt' => 'AQA A-level Computer Science gives students the chance to think creatively and progress...',
-            'description' => 'AQA A-level Computer Science gives students the chance to think creatively and progress through the AQA AS and A-level Computer Science specifications. Detailed coverage of the specifications will enrich understanding of the fundamental principles of computing, whilst a range of activities help to develop the programming skills and computational thinking skills at A-level and beyon',
-            'link'=> '',
-            'price' => '£25',            
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '4',
-            'name' => 'Law 1',
-            'school' => 'School of Law',
-            'excerpt' => 'Letters to a Law Student relays all that a prospective law student needs to know before embarking...',
-            'description' => 'Letters to a Law Student relays all that a prospective law student needs to know before embarking on their studies. It provides a useful guide to those considering a law degree or conversion course and helps students prepare for what can be a daunting first year of stud',
-            'link'=> '',
-            'price' => '£14',                     
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '2',
-            'name' => 'Business 1',
-            'school' => 'Business Studies',
-            'excerpt' => 'This bestselling textbook has been extensively revised, reorganised...',
-            'description' => 'This bestselling textbook has been extensively revised, reorganised and updated for the AS and A Level Business Studies specifications from September 2008. The 4th edition of this market-leading text from the respected and trusted team of authors - Dave Hall, Carlo Raffo and Rob Jones.',
-            'link'=> '',
-            'price' => '£30',          
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '2',
-            'name' => 'Engineering 1',
-            'school' => 'Engineering',
-            'excerpt' => 'If there is a successor to Make: Electronics, then I believe it would have to...',
-            'description' => 'If there is a successor to Make: Electronics, then I believe it would have to be Practical Electronics for Inventors perfect for an electrical engineering student or maybe a high school student with a strong aptitude for electronics....I’ve been anxiously awaiting this update, and it was well worth the wait."',
-            'link'=> '',
-            'price' => '£22',            
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '3',
-            'name' => 'Computing 1',
-            'school' => 'Computing Science',
-            'excerpt' => 'Accept no imitations! Practise for your exams on the genuine Higher Specimen Paper and...',
-            'description' => 'Accept no imitations! Practise for your exams on the genuine Higher Specimen Paper and 2015 Past Paper from the Scottish Qualifications Authority, and three specially-commissioned Hodder Gibson Model Papers',
-            'link'=> '',
-            'price' => '£8',           
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '3',
-            'name' => 'Computing 2',
-            'school' => 'Computing Science',
-            'excerpt' => 'AQA A-level Computer Science gives students the chance to think creatively and progress...',
-            'description' => 'AQA A-level Computer Science gives students the chance to think creatively and progress through the AQA AS and A-level Computer Science specifications. Detailed coverage of the specifications will enrich understanding of the fundamental principles of computing, whilst a range of activities help to develop the programming skills and computational thinking skills at A-level and beyon',
-            'link'=> '',
-            'price' => '£25',            
-        ]);
-        Product::create([
-            'category_id' => '1',
-            'user_id' => '4',
-            'name' => 'Law 1',
-            'school' => 'School of Law',
-            'excerpt' => 'Letters to a Law Student relays all that a prospective law student needs to know before embarking...',
-            'description' => 'Letters to a Law Student relays all that a prospective law student needs to know before embarking on their studies. It provides a useful guide to those considering a law degree or conversion course and helps students prepare for what can be a daunting first year of stud',
-            'link'=> '',
-            'price' => '£14',                     
         ]);       
     }
 }
@@ -536,42 +382,42 @@ class EventsSeeder extends Seeder {
     public function run() {
         DB::table('events')->delete();
         Event::create([
-            'title' => 'Event 1',
-            'place' => '2',            
-            'excerpt' => 'This bestselling textbook has been extensively revised, reorganised...',
-            'description' => 'This bestselling textbook has been extensively revised, reorganised and updated for the AS and A Level Business Studies specifications from September 2008. The 4th edition of this market-leading text from the respected and trusted team of authors - Dave Hall, Carlo Raffo and Rob Jones.',
+            'title' => '175th Anniversary Lecture Series',
+            'place' => 'Quayside',            
+            'excerpt' => 'AS part of the University of Huddersfield’s 175th anniversary celebrations.',
+            'description' => 'AS part of the University of Huddersfield’s 175th anniversary celebrations, members of the public can attend free lectures delving into the origins of adult education in the town.  It is a story that has cast of characters including Charles Dickens and the Brontës, plus pioneer science .',
             'user_id' => '1',
-            'space_remained' => 18,                      
+            'space_remained' => 0,                      
         ]);
         Event::create([
-            'title' => 'Event 2',
-            'place' => '2',            
-            'excerpt' => 'This bestselling textbook has been extensively revised, reorganised...',
-            'description' => 'This bestselling textbook has been extensively revised, reorganised and updated for the AS and A Level Business Studies specifications from September 2008. The 4th edition of this market-leading text from the respected and trusted team of authors - Dave Hall, Carlo Raffo and Rob Jones.',
+            'title' => 'Table Tennis',
+            'place' => 'University Sports Hall',            
+            'excerpt' => 'THIS FRIDAY come and see Matt Stanforth, England Table Tennis Coach,',
+            'description' => 'THIS FRIDAY come and see Matt Stanforth, England Table Tennis Coach, for workshops and tips and to play casual games. Dont forget to come to Student Central from 2.00pm, the table tennis tables will be set up for casual games and we re also selling hotdogs!',
             'user_id' => '1',
             'space_remained' => 25,                     
         ]);
         Event::create([
-            'title' => 'Event 3',
-            'place' => '2',            
-            'excerpt' => 'This bestselling textbook has been extensively revised, reorganised...',
-            'description' => 'This bestselling textbook has been extensively revised, reorganised and updated for the AS and A Level Business Studies specifications from September 2008. The 4th edition of this market-leading text from the respected and trusted team of authors - Dave Hall, Carlo Raffo and Rob Jones.',
+            'title' => 'Bengali New Year',
+            'place' => 'Student Central',            
+            'excerpt' => 'Join the bengali new year today in Student Central',
+            'description' => 'Join the bengali new year today in Student Central',
             'user_id' => '2',
             'space_remained' => 30,                    
         ]);
         Event::create([
-            'title' => 'Event 4',
-            'place' => '2',            
-            'excerpt' => 'This bestselling textbook has been extensively revised, reorganised...',
-            'description' => 'This bestselling textbook has been extensively revised, reorganised and updated for the AS and A Level Business Studies specifications from September 2008. The 4th edition of this market-leading text from the respected and trusted team of authors - Dave Hall, Carlo Raffo and Rob Jones.',
+            'title' => 'Holi Celebrations',
+            'place' => 'Hindu Temple',            
+            'excerpt' => 'Join tomorrow Holi celebrations at the Huddersfield Hindu Temple,..',
+            'description' => 'ight before Holi with a Holika bonfire where people gather, sing, dance and party.',
             'user_id' => '2',
             'space_remained' => 15,                     
         ]);
         Event::create([
-            'title' => 'Event 5',
-            'place' => '2',            
-            'excerpt' => 'This bestselling textbook has been extensively revised, reorganised...',
-            'description' => 'This bestselling textbook has been extensively revised, reorganised and updated for the AS and A Level Business Studies specifications from September 2008. The 4th edition of this market-leading text from the respected and trusted team of authors - Dave Hall, Carlo Raffo and Rob Jones.',
+            'title' => 'Pakistan Resolution Day',
+            'place' => 'Quayside',            
+            'excerpt' => 'Happy Pakistan Resolution Day to our Pakistani student society and students..',
+            'description' => 'Happy Pakistan Resolution Day to our Pakistani student society and students. Dont miss the event tonight at 6pm in Quayside hosted by Huddersfield University Pakistan Society!',
             'user_id' => '3',
             'space_remained' => 12,                     
         ]);

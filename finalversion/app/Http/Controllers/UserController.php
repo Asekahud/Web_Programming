@@ -21,11 +21,7 @@ class UserController extends Controller
     public function index()
     {
         return view('welcome');
-    }
-     public function add_form()
-    {
-        return view('create');
-    }
+    }     
     
     /**
      * Get a validator for an incoming registration request.
@@ -36,10 +32,9 @@ class UserController extends Controller
     public function validator(array $data)
     {
         $messages = [
-            'required' => 'This field is required',
-            'size' => 'The field must be :size chars',
-            'min' => 'The field is too short',
-            'max' => 'The field is too long.',
+            'required' => 'The :attribute is required',
+            'min' => 'The :attribute is too short',
+            'max' => 'The :attribute is too long.',
             'unique' => 'This :attribute already exists.',
             'email' => 'You should provide valid email address',
             'confirmed' => 'Passwords does not match!',
@@ -48,7 +43,6 @@ class UserController extends Controller
         return Validator::make($data, [
             'firstname' => 'required|min:3|max:50',
             'lastname' => 'required|min:3|max:50',
-            'student_id' => 'required|size:8|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',        
         ],$messages);
@@ -65,7 +59,6 @@ class UserController extends Controller
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
-            'student_id' => $data['student_id'],
             'password' => bcrypt($data['password']),
         ]);
     }    
@@ -79,10 +72,12 @@ class UserController extends Controller
     {
         $validator = $this->validator($request::all());
         if ($validator->fails()) {
+              \Session::flash('message','You have failed registration. Try Again!');
               return redirect()->back()->withErrors($validator->messages());          
         }
         else {
              $this->create($request::all());             
+             \Session::flash('message','You have sucessfully registered. Now you can Sign In');
              return redirect('/');
         }  
     }
@@ -103,6 +98,7 @@ class UserController extends Controller
             return redirect('/');
         }
         else {
+            \Session::flash('message','You have failed to Log In, Try again!');
             $errors = new MessageBag(['email_in' => ['Email and/or password invalid.']]);
             return redirect()->back()->withErrors($errors);
         }
@@ -118,8 +114,34 @@ class UserController extends Controller
       Session:flush();
       return redirect('/');
     }
-    public function getUserChats() {
+    public function getUserChats(Request $request) {
       
+      $from_id = Auth::user()->id;
+           
+      $messages=DB::table('messages')
+            ->where(function ($query) use($from_id) {
+                $query->where('from_id',$from_id);
+            })
+            ->orWhere(function ($query) use($from_id) {
+                $query->where('to_id', $from_id);
+            })->get();
+       $results=array();
+       
+       foreach ($messages as $message)
+        {            
+            if($message->from_id == $from_id)
+            {
+               $name = DB::table('users')->where('id',$message->to_id)->value('firstname');
+               $results[] = ['to_name' => $name, 'to_id' => $message->to_id];
+            }
+            else
+            {
+               $name = DB::table('users')->where('id',$message->from_id)->value('firstname');
+               $results[] = ['to_name' => $name, 'to_id' => $message->from_id]; 
+            }          
+        }
+       $chats = array_unique($results, SORT_REGULAR);    
+       return view('auth.mychats', ['chats' => $chats]);
     }
     public function openChat(Request $request) {
         
@@ -169,10 +191,11 @@ class UserController extends Controller
        
          foreach ($messages as $message) {
             DB::table('messages')
-               ->where('from_id',$message->from_id)
+               ->where('from_id',Auth::user()->id)             
                ->update(['sender_read'=>true]);
+               
             DB::table('messages')
-               ->where('to_id',$message->from_id)
+               ->where('to_id',Auth::user()->id)               
                ->update(['receiver_read'=>true]);
          }
         
@@ -201,10 +224,10 @@ class UserController extends Controller
            foreach ($messages as $message) {                   
                
                DB::table('messages')
-                 ->where('from_id',$message->from_id)
+                 ->where('from_id',Auth::user()->id)
                  ->update(['sender_read'=>true]);
                DB::table('messages')
-                 ->where('to_id',$message->from_id)
+                 ->where('to_id',Auth::user()->id)
                  ->update(['receiver_read'=>true]);
                 $results[] = ['from_id' => $message->from_id, 'to_id' => $message->to_id, 'content' => $message->content];
              }

@@ -5,20 +5,20 @@
          <thead>
             <th>Guest ID</th>
             <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Student ID</th>            
+            <th>Lastname</th>                      
          </thead>
          <tbody>
   @foreach($guests as $guest)
             <tr>
             <td>{!! $guest->id !!}</td>
             <td>{!! $guest->firstname !!}</td>            
-            <td>{!! $guest->lastname !!}</td>   
-            <td>{!! $guest->student_id !!}</td>               
+            <td>{!! $guest->lastname !!}</td>                          
  @endforeach  
      </tbody>          
 </table>
  @else
-   <p>There are no students that registered to this event yet.</p>
+   <div class="message-div">
+    <p>There are no students that registered to this event yet.</p>
+   </div>
  @endif  
 @endsection

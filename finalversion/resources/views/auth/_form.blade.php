@@ -8,29 +8,22 @@
        <h1>Sign Up for Free</h1>
         <form action="{{ url('/register') }}" method="POST" novalidate>
          {!! csrf_field() !!}
-         <div class="top-row">                
-            <div class="field-wrap">
+                        
+        <div class="field-wrap">
                   @if ($errors->has('firstname'))                    
                     <span class="errors">{{ $errors->first('firstname') }}</span>                 
                   @endif                                
                 <input type="text" name="firstname" required autocomplete="off" placeholder="First Name*"/>
-            </div><!--field-wrap-->           
-            <div class="field-wrap">
+        </div><!--field-wrap-->
+        
+        <div class="field-wrap">
                @if ($errors->has('lastname'))                    
                   <span class="errors">{{ $errors->first('lastname') }}</span>            
                 @endif              
                 <input type="text" name="lastname" required autocomplete="off" placeholder="Last Name*"/>
-            </div><!--field-wrap-->
-            
-         </div> <!--top row-->
-               
-         <div class="field-wrap">
-                 @if ($errors->has('student_id'))                    
-                   <span class="errors">{{ $errors->first('student_id') }}</span>             
-                 @endif                
-                <input type="text" name="student_id" required autocomplete="off" placeholder="Student ID*" />
-         </div><!--field-wrap-->         
-         <div class="field-wrap">
+        </div><!--field-wrap-->
+                       
+        <div class="field-wrap">
              @if ($errors->has('email'))                    
                 <span class="errors">{{ $errors->first('email') }}</span>           
              @endif               
@@ -66,9 +59,7 @@
          
          <div class="field-wrap">       
                 <input type="password" name="password_in" required autocomplete="off" placeholder="Password*" />
-         </div><!--field-wrap-->
-         
-         <p class="forgot"><a href="{{ url('/password/reset') }}">Forgot Password?</a></p>
+         </div><!--field-wrap-->       
          
          <button class="button button-block"/>Log In</button>  
         </form>

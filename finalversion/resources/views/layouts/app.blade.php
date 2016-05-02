@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en">
 <head> 
-    <title>Laravel</title>    
+    <title>Studtrade</title>    
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{!! asset('/css/Style.css') !!}" rel='stylesheet' type='text/css'>
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet" type='text/css'>
@@ -17,12 +17,11 @@
       <li><a href="{{ url('/events') }}">Events</a></li> 
       <li><a href="">About</a></li>
       @if (Auth::guest())
-      <li id="userlogo"><a href="{{ url('/auth') }}">Guest</a>
+      <li id="userlogo"><a href="{{ url('/auth') }}">Authorize</a>
       @else
       <li id="userlogo"><a href="{{ url('/') }}">{{ Auth::user()->firstname }} </a>
-        <ul class="navigation-sub-menu"> 
-           <li><a href="{{ url('/addnew') }}">Add New</a>         
-           <li><a href="{{ url('/myproducts') }}">My Stuff</a></li>
+        <ul class="navigation-sub-menu">                    
+           <li><a href="{{ url('/myproducts') }}">My Products</a></li>
            <li><a href="{{ url('/myevents') }}">My Events</a></li>
            <li><a href="{{ url('/mychats') }}">My Chats</a></li>
            <li><a href="{{ url('/logout') }}">Log Out</a> 
@@ -43,7 +42,7 @@
       $.ajaxSetup({ 
       headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') } 
       }); 
-</script>
+ </script>
 </body>
 </html>
 

@@ -19,8 +19,13 @@ class ProductController extends Controller
 {
     public function showall()
     {
-        $products = DB::table('products')->paginate(10);       
+        $products = DB::table('products')->paginate(5);       
         return view('product.allproducts', ['products' => $products]);
+    }
+    
+    public function createForm()
+    {
+        return view('product.form');
     }
     
    public function showDetails($id)
@@ -31,15 +36,14 @@ class ProductController extends Controller
             ->join('users', 'products.user_id','=','users.id')
             ->where('product_id',$id)->first();      
        return view('product.product-detail',['product' => $product, 'photo' => $contents]);  
-    }
-    
+    }    
     public function getMyProducts()
     {
         $id=Auth::user()->id;        
         $products = DB::table('products')
             ->join('categories', 'products.category_id','=','categories.category_id')
             ->join('users', 'products.user_id','=','users.id')
-            ->where('user_id',$id)->paginate(10);
+            ->where('user_id',$id)->paginate(5);
         
         return view('product.myproducts', ['products' => $products]);
     }
@@ -51,6 +55,7 @@ class ProductController extends Controller
      public function update(Request $request) {
         $validator = $this->validator($request::all());
         if ($validator->fails()) {
+              \Session::flash('message','You failed validation. Try Again!');
               return redirect()->back()->withErrors($validator->messages());          
         }
         else {
@@ -64,9 +69,11 @@ class ProductController extends Controller
             'excerpt' =>  $product['excerpt'],            
             'description' =>  $product['description'],
             'user_id' => Auth::user()->id,
-            'image' => 'url(/images/business1.jpg)',
             );
+             
              $update = DB::table('products')->where('product_id',$data['product_id'])->update($data);
+             
+             \Session::flash('message','Product have been successfully updated ');          
              return redirect('myproducts');
         }
      }
@@ -75,7 +82,7 @@ class ProductController extends Controller
         $delete = DB::table('products')->where('product_id',$id)->delete();
         if ($delete > 0)
         {
-            \Session::flash('message','Post have been deleted succesfully');
+            \Session::flash('message','Product have been succesfully deleted');
             return redirect('myproducts');
         }
     }
@@ -88,20 +95,16 @@ class ProductController extends Controller
     public function validator(array $data)
     {
         $messages = [
-            'required' => 'This field is required',
-            'size' => 'The field must be :size chars',
-            'min' => 'The field is too short',
-            'max' => 'The field is too long.',
-            'unique' => 'This :attribute already exists.',
-            'email' => 'You should provide valid email address',           
+            'required' => 'The :attribute is required',            
+            'min' => 'The :attribute is too short',
+            'max' => 'The :attribute is too long.',                   
         ];
                
         return Validator::make($data, [
-            'name' => 'required|min:5|max:50',
-            'price' => 'required|min:2|max:4',
-            'excerpt' => 'required|min:15|max:40',
-            'description' => 'required|min:40|max:255',
-            'image' => 'required',
+            'name' => 'required',
+            'price' => 'required',
+            'excerpt' => 'required|min:6',
+            'description' => 'required|min:10',           
         ],$messages);
     }
     public function create(array $data)
@@ -113,8 +116,7 @@ class ProductController extends Controller
             'school' => $data['school'],
             'excerpt' => $data['excerpt'],            
             'description' => $data['description'],
-            'user_id' => Auth::user()->id,
-            'image' => 'url(/images/business1.jpg)',
+            'user_id' => Auth::user()->id,            
         ]);
     }
     /**
@@ -127,7 +129,8 @@ class ProductController extends Controller
               
         $validator = $this->validator($request::all());
         if ($validator->fails()) {
-              return redirect()->back()->withErrors($validator->messages());          
+             \Session::flash('message','You failed validation. Try Again!'); 
+              return redirect()->back()->withErrors($validator->messages());              
         }
         else {
              $this->create($request::all());
@@ -138,8 +141,8 @@ class ProductController extends Controller
              if ($file) {
                Storage::disk('local')->put($filename,File::get($file));
              }
-             
-             return redirect('/products');
+             \Session::flash('message','Product have been successfully added ');
+             return redirect('/myproducts');
         }  
     }
     /**
@@ -167,13 +170,13 @@ class ProductController extends Controller
     }
     public function autocomplete() {
            
-            $searchterm = Input::get('term');
-            $results=array();
-            $queries=DB::table('products')->where('name','LIKE', '%'.$searchterm.'%')->get();
-            foreach ($queries as $query)
+        $searchterm = Input::get('term');
+        $results=array();
+        $queries=DB::table('products')->where('name','LIKE', '%'.$searchterm.'%')->get();
+         foreach ($queries as $query)
             {
                 $results[] = ['id' => $query->product_id, 'value' => $query->name];
             }
-            return Response::json($results);
+         return Response::json($results);
     }
 }

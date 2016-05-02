@@ -1,4 +1,14 @@
-<form action="{{ url('/product/create') }}" method="POST" enctype="multipart/form-data" novalidate>
+@extends('layouts.app')
+@section('content')
+@if(Session::has('message'))
+   <div class="fail">
+        {{ Session::get('message') }}
+   </div>
+@endif
+<div class="form">
+ <div class="tab-content"> 
+    <h1>Add New Product</h1> 
+ <form action="{{ url('/product/create') }}" method="POST" enctype="multipart/form-data" novalidate>
        {!! csrf_field() !!}
        <div class="top-row"> 
         <div class="field-wrap">
@@ -28,21 +38,24 @@
     </div>
     <div class="field-wrap">
     @if ($errors->has('image'))                    
-         <span class="errors">{{ $errors->first('image') }}</span>                 
+         <span class="img-errors">{{ $errors->first('image') }}</span>                 
      @endif
       <input type="file" name="image" required autocomplete="off"/> 
     </div><!--field-wrap--> 
     <div class="field-wrap">
       @if ($errors->has('excerpt'))                    
-          <span class="errors">{{ $errors->first('excerpt') }}</span>                 
+          <span class="exc-errors">{{ $errors->first('excerpt') }}</span>                 
        @endif
-     <textarea name="excerpt" placeholder="Excerpt"></textarea> 
+     <textarea name="excerpt" class="excerpt" placeholder="Excerpt"></textarea> 
     </div><!--field-wrap--> 
     <div class="field-wrap">
     @if ($errors->has('description'))                    
-          <span class="errors">{{ $errors->first('description') }}</span>                 
+          <span class="desc-errors">{{ $errors->first('description') }}</span>                 
      @endif
      <textarea name="description" class="description" placeholder="Description"></textarea> 
     </div><!--field-wrap--> 
     <button type="submit" class="button button-block"/>Add Product</button> 
-</form> 
+ </form>
+ </div>
+</div>
+@endsection

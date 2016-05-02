@@ -1,5 +1,10 @@
 @extends('layouts.app')
  @section('content')
+@if(Session::has('message'))
+  <div class="fail">
+    {{ Session::get('message') }}
+  </div>    
+@endif
 <div class="form">
   <div class="tab-content"> 
   <h1>Update Event</h1> 
@@ -30,13 +35,13 @@
  
     <div class="field-wrap">
       @if ($errors->has('excerpt'))                    
-          <span class="errors">{{ $errors->first('excerpt') }}</span>                 
+          <span class="exc-errors">{{ $errors->first('excerpt') }}</span>                 
        @endif
-     <textarea name="excerpt" placeholder="Excerpt">{{ $event->excerpt }}</textarea> 
+     <textarea name="excerpt" class="excerpt" placeholder="Excerpt">{{ $event->excerpt }}</textarea> 
     </div><!--field-wrap--> 
     <div class="field-wrap">
     @if ($errors->has('description'))                    
-          <span class="errors">{{ $errors->first('description') }}</span>                 
+          <span class="desc-errors">{{ $errors->first('description') }}</span>                 
      @endif
      <textarea name="description" class="description" placeholder="Description">{{ $event->description }}</textarea> 
     </div><!--field-wrap--> 
